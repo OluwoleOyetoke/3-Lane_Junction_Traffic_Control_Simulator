@@ -1,0 +1,31 @@
+module arcPointGenerator(   
+
+input [7:0] x,
+input [8:0] y,
+input [8:0] radius,
+
+input [7:0] lowerLimitX,
+input [8:0] lowerLimitY,
+
+
+input [7:0] upperLimitX,
+input [8:0] upperLimitY
+
+);
+
+
+
+reg signed [8:0] bresenhamsLeft; //Behams left
+reg signed [7:0] bresenhamsRight; //Behams right
+reg signed [64:0] bresenhamsTotalLeftHandSide;
+
+reg signed [7:0] CentreH;
+reg signed [8:0] CentreK;
+
+
+reg signed [7:0] signedXAddr;
+reg signed [8:0] signedYAddr;
+
+
+
+endmodule

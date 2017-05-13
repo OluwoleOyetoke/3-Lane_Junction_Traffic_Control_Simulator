@@ -1,0 +1,98 @@
+
+module LT24Top (
+    //
+    // Global Clock/Reset
+    // - Clock
+    input              clock,
+    // - Global Reset
+    input              globalReset,
+    // - Application Reset - for debug
+    output             resetApp,
+    //
+    // LT24 Interface
+    output             LT24_WRn,
+    output             LT24_RDn,
+    output             LT24_CSn,
+    output             LT24_RS,
+    output             LT24_RESETn,
+    output [     15:0] LT24_D,
+    output             LT24_LCD_ON
+);
+
+reg  [ 7:0] xAddr      ;
+reg  [ 8:0] yAddr      ;
+reg  [15:0] pixelData  ;
+wire        pixelReady ;
+
+localparam WIDTH = 240;
+localparam HEIGHT = 320;
+
+LT24Display #(
+    .WIDTH       (240        ),
+    .HEIGHT      (320        ),
+    .CLOCK_FREQ  (50000000   )
+) Display (
+    .clock       (clock      ),
+    .globalReset (globalReset),
+    .resetApp    (resetApp   ),
+    .xAddr       (xAddr      ),
+    .yAddr       (yAddr      ),
+    .pixelData   (pixelData  ),
+    .pixelWrite  (1'b1       ),
+    .pixelReady  (pixelReady ),
+	 .pixelRawMode(1'b0       ),
+    .cmdData     (8'b0       ),
+    .cmdWrite    (1'b0       ),
+    .cmdDone     (1'b0       ),
+    .cmdReady    (           ),
+    .LT24_WRn    (LT24_WRn   ),
+    .LT24_RDn    (LT24_RDn   ),
+    .LT24_CSn    (LT24_CSn   ),
+    .LT24_RS     (LT24_RS    ),
+    .LT24_RESETn (LT24_RESETn),
+    .LT24_D      (LT24_D     ),
+    .LT24_LCD_ON (LT24_LCD_ON)
+);
+
+// X Counter
+always @ (posedge clock or posedge resetApp) begin
+    if (resetApp) begin
+        xAddr <= 8'b0;
+    end else if (pixelReady) begin
+        if (xAddr < (WIDTH-1)) begin
+            xAddr <= xAddr + 8'd1;
+        end else begin
+            xAddr <= 8'b0;
+        end
+    end
+end
+
+// Y Counter
+always @ (posedge clock or posedge resetApp) begin
+    if (resetApp) begin
+        yAddr <= 9'b0;
+    end else if (pixelReady && (xAddr == (WIDTH-1))) begin
+        if (yAddr < (HEIGHT-1)) begin
+            yAddr <= yAddr + 9'd1;
+        end else begin
+            yAddr <= 9'b0;
+        end
+    end
+end
+
+always @ * begin
+    pixelData[15:11] = xAddr[7:3];
+    pixelData[10: 5] = yAddr[8:3];
+end
+
+always @ (posedge clock or posedge resetApp) begin
+    if (resetApp) begin
+        pixelData[4:0] <= 5'b0;
+    end else if (pixelReady && (xAddr == (WIDTH-1)) && (yAddr == (HEIGHT-1))) begin
+        pixelData[4:0] <= pixelData[4:0] + 5'b1;
+    end
+end
+
+
+
+endmodule

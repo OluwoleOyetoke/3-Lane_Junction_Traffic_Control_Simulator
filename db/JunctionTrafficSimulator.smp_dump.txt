@@ -1,0 +1,23 @@
+
+State Machine - |LT24Top|currentState
+Name currentState.F currentState.E currentState.D currentState.C currentState.B currentState.A 
+currentState.A 0 0 0 0 0 0 
+currentState.B 0 0 0 0 1 1 
+currentState.C 0 0 0 1 0 1 
+currentState.D 0 0 1 0 0 1 
+currentState.E 0 1 0 0 0 1 
+currentState.F 1 0 0 0 0 1 
+
+State Machine - |LT24Top|LT24Display:Display|stateMachine
+Name stateMachine.IDLE_STATE stateMachine.CASET_STATE stateMachine.XHADDR_STATE stateMachine.XLADDR_STATE stateMachine.PASET_STATE stateMachine.YHADDR_STATE stateMachine.YLADDR_STATE stateMachine.WRITE_STATE stateMachine.CMD_STATE stateMachine.LOAD_STATE stateMachine.INIT_STATE 
+stateMachine.INIT_STATE 0 0 0 0 0 0 0 0 0 0 0 
+stateMachine.LOAD_STATE 0 0 0 0 0 0 0 0 0 1 1 
+stateMachine.CMD_STATE 0 0 0 0 0 0 0 0 1 0 1 
+stateMachine.WRITE_STATE 0 0 0 0 0 0 0 1 0 0 1 
+stateMachine.YLADDR_STATE 0 0 0 0 0 0 1 0 0 0 1 
+stateMachine.YHADDR_STATE 0 0 0 0 0 1 0 0 0 0 1 
+stateMachine.PASET_STATE 0 0 0 0 1 0 0 0 0 0 1 
+stateMachine.XLADDR_STATE 0 0 0 1 0 0 0 0 0 0 1 
+stateMachine.XHADDR_STATE 0 0 1 0 0 0 0 0 0 0 1 
+stateMachine.CASET_STATE 0 1 0 0 0 0 0 0 0 0 1 
+stateMachine.IDLE_STATE 1 0 0 0 0 0 0 0 0 0 1 

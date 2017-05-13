@@ -1,0 +1,4 @@
+Warning (10268): Verilog HDL information at LT24Top.v(998): always construct contains both blocking and non-blocking assignments
+Warning (10268): Verilog HDL information at LT24Top.v(1309): always construct contains both blocking and non-blocking assignments
+Warning (10268): Verilog HDL information at LT24Top.v(1328): always construct contains both blocking and non-blocking assignments
+Warning (10268): Verilog HDL information at LT24Top.v(1647): always construct contains both blocking and non-blocking assignments
